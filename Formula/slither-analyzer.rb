@@ -42,8 +42,10 @@ class SlitherAnalyzer < Formula
     (testpath/"test.sol").write <<~EOS
       pragma solidity ^0.8.0;
       contract Test {
-        function f() public pure returns (bool) {
-          return false;
+        function incorrect_shift() internal returns (uint a) {
+          assembly {
+            a := shr(a, 8)
+          }
         }
       }
     EOS
@@ -51,9 +53,9 @@ class SlitherAnalyzer < Formula
     system "solc-select", "install", "0.8.0"
 
     with_env(SOLC_VERSION: "0.8.0") do
-      # slither exit code is the number of findings
-      assert_match("test.sol analyzed",
-                   shell_output("#{bin}/slither --detect external-function #{testpath}/test.sol 2>&1", 1))
+      # slither exits with code 255 if high severity findings are found
+      assert_match("1 result(s) found",
+                   shell_output("#{bin}/slither --detect incorrect-shift --fail-high #{testpath}/test.sol 2>&1", 255))
     end
   end
 end
