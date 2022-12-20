@@ -4,6 +4,7 @@ class Secp256k1 < Formula
   url "https://github.com/bitcoin-core/secp256k1/archive/refs/tags/v0.2.0.tar.gz"
   sha256 "6cb0fd596e6b1a671f96e9ed7e65a047960def73de024e7b39f45a78ab4fc8df"
   license "MIT"
+  revision 1
 
   bottle do
     sha256 cellar: :any,                 arm64_ventura:  "774773baaaa4540d4fda3ccafda45b9fb4b15dd2d53fa367e78e23cd880eef3b"
@@ -21,7 +22,7 @@ class Secp256k1 < Formula
 
   def install
     system "./autogen.sh"
-    system "./configure", *std_configure_args, "--disable-silent-rules"
+    system "./configure", *std_configure_args, "--disable-silent-rules", "--enable-module-recovery"
     system "make"
     system "make", "install"
   end
