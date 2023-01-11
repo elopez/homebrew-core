@@ -3,8 +3,8 @@ class SlitherAnalyzer < Formula
 
   desc "Solidity static analysis framework written in Python 3"
   homepage "https://github.com/crytic/slither"
-  url "https://files.pythonhosted.org/packages/7e/35/08f27352ce2d10e65bac7c17085bd74904cfeb9e831b60e71b62fa5a2400/slither-analyzer-0.9.1.tar.gz"
-  sha256 "25a3860309bda599bce69de129620aa5b38c82b87554eafe0eff5117b81bac18"
+  url "https://files.pythonhosted.org/packages/9c/d1/ac5d4b486a1e9528158127630193e874b8b8a7874a9387b6a812d48d2086/slither-analyzer-0.9.2.tar.gz"
+  sha256 "625ef0c18b9484e4be094ea3d2b15649f93d8724f165d4d6f9adc8ccddf6ebcf"
   license "AGPL-3.0-only"
   head "https://github.com/crytic/slither.git", branch: "master"
 
@@ -22,9 +22,14 @@ class SlitherAnalyzer < Formula
   depends_on "python@3.10"
   depends_on "solc-select"
 
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/47/d5/aca8ff6f49aa5565df1c826e7bf5e85a6df852ee063600c1efa5b932968c/packaging-23.0.tar.gz"
+    sha256 "b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97"
+  end
+
   resource "prettytable" do
-    url "https://files.pythonhosted.org/packages/a5/aa/0852b0ee91587a766fbc872f398ed26366c7bf26373d5feb974bebbde8d2/prettytable-3.4.1.tar.gz"
-    sha256 "7d7dd84d0b206f2daac4471a72f299d6907f34516064feb2838e333a4e2567bd"
+    url "https://files.pythonhosted.org/packages/ba/b6/8e78337766d4c324ac22cb887ecc19487531f508dbf17d922b91492d55bb/prettytable-3.6.0.tar.gz"
+    sha256 "2e0026af955b4ea67b22122f310b90eae890738c08cb0458693a49b6221530ac"
   end
 
   resource "wcwidth" do
