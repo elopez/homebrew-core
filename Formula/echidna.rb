@@ -1,10 +1,9 @@
 class Echidna < Formula
   desc "Ethereum smart contract fuzzer"
   homepage "https://github.com/crytic/echidna"
-  url "https://github.com/crytic/echidna/archive/refs/tags/v2.0.5.tar.gz"
-  sha256 "711672269d93e024313cc74c16f0c33f45b432e71a9087ef9e65d5ac0440968e"
+  url "https://github.com/crytic/echidna/archive/refs/tags/v2.1.0.tar.gz"
+  sha256 "c8e71f2b5900f019c8c4b81bb19626b486584fe63d2f9cdfad6ddd2a664a1d4c"
   license "AGPL-3.0-only"
-  revision 1
   head "https://github.com/crytic/echidna.git", branch: "master"
 
   bottle do
@@ -64,7 +63,7 @@ class Echidna < Formula
 
     with_env(SOLC_VERSION: "0.7.0") do
       assert_match(/echidna_true:(\s+)passed!/,
-                   shell_output("#{bin}/echidna-test --format text #{testpath}/test.sol"))
+                   shell_output("#{bin}/echidna --format text #{testpath}/test.sol"))
     end
   end
 end
