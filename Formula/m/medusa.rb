@@ -4,6 +4,7 @@ class Medusa < Formula
   url "https://github.com/crytic/medusa/archive/refs/tags/v0.1.1.tar.gz"
   sha256 "5ba7ff3654b229a44684f473725dd7256e0514926fa553fbccfa556e399b3c3e"
   license "AGPL-3.0-only"
+  head "https://github.com/crytic/medusa.git", branch: "master"
 
   bottle do
     sha256 cellar: :any_skip_relocation, arm64_ventura:  "8d5fce00a1fa24bf839644fe2f009a2c2834f4d5f0a4588ec88fd5e23272c5ef"
