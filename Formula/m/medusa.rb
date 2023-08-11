@@ -1,8 +1,8 @@
 class Medusa < Formula
   desc "Solidity smart contract fuzzer powered by go-ethereum"
   homepage "https://github.com/crytic/medusa"
-  url "https://github.com/crytic/medusa/archive/refs/tags/v0.1.1.tar.gz"
-  sha256 "5ba7ff3654b229a44684f473725dd7256e0514926fa553fbccfa556e399b3c3e"
+  url "https://github.com/crytic/medusa/archive/refs/tags/v0.1.2.tar.gz"
+  sha256 "17163cb9c5f73eac3d896d91622a6fbd24c5c0a516b4248d679b26b35df1849a"
   license "AGPL-3.0-only"
   head "https://github.com/crytic/medusa.git", branch: "master"
 
@@ -27,11 +27,6 @@ class Medusa < Formula
 
   test do
     system "truffle", "init"
-
-    # medusa does not appear to work with 'shanghai' EVM targets yet, which became the
-    # default in solc 0.8.20 / truffle 5.9.1
-    # Use an explicit 'paris' EVM target meanwhile, which was the previous default
-    inreplace "truffle-config.js", %r{//\s*evmVersion:.*$}, "evmVersion: 'paris'"
 
     (testpath/"contracts/test.sol").write <<~EOS
       pragma solidity ^0.8.0;
