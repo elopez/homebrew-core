@@ -935,7 +935,7 @@
     "exclude_packages": ["packaging"]
   },
   "slither-analyzer": {
-    "exclude_packages": ["certifi", "packaging"]
+    "exclude_packages": ["certifi", "crytic-compile", "packaging", "solc-select"]
   },
   "snakefmt": {
     "exclude_packages": ["black", "toml"]
