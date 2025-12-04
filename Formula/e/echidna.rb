@@ -26,7 +26,7 @@ class Echidna < Formula
   depends_on "ghc@9.8" => :build
   depends_on "haskell-stack" => :build
 
-  depends_on "truffle" => :test
+  depends_on "foundry" => :test
 
   depends_on "crytic-compile"
   depends_on "gmp"
@@ -60,14 +60,19 @@ class Echidna < Formula
   end
 
   test do
-    system "truffle", "init"
+    project = testpath/"project"
+    project.mkpath
+    cd project do
+      # forge init will create an initial git commit, which will fail if an email is not set.
+      ENV["EMAIL"] = "example@example.com"
+      system "forge", "init"
+    end
 
-    # echidna does not appear to work with 'shanghai' EVM targets yet, which became the
-    # default in solc 0.8.20 / truffle 5.9.1
-    # Use an explicit 'paris' EVM target meanwhile, which was the previous default
-    inreplace "truffle-config.js", %r{//\s*evmVersion:.*$}, "evmVersion: 'paris'"
+    # Use an explicit 'prague' EVM target version to avoid breaking the test whenever
+    # Foundry bumps the default EVM version.
+    ENV["FOUNDRY_EVM_VERSION"] = "prague"
 
-    (testpath/"contracts/test.sol").write <<~SOLIDITY
+    (project/"src/test.sol").write <<~SOLIDITY
       pragma solidity ^0.8.0;
       contract True {
         function f() public returns (bool) {
@@ -80,6 +85,6 @@ class Echidna < Formula
     SOLIDITY
 
     assert_match("echidna_true: passing",
-                 shell_output("#{bin}/echidna --format text --contract True #{testpath}"))
+                 shell_output("#{bin}/echidna --format text --contract True #{project}"))
   end
 end
